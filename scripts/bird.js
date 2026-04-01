@@ -37,10 +37,4 @@ export const drawBird = (ctx , canvas) => {
         
     };
 
-}
-    
-
-
-
-
-
+};

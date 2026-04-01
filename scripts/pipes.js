@@ -1,4 +1,4 @@
-export const drawPipes = ctx => {
+export const drawPipes = (ctx , canvas)=> {
     const upperPipe = new Image();
     const lowerPipe = new Image();
 
@@ -10,7 +10,7 @@ export const drawPipes = ctx => {
     const pipeWidth = 70;
     const pipeGap = 150;
 
-    const uppePipeHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
+    const upperPipeHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
     const lowerPipeHeight = upperPipeHeight - pipeGap;
 
     
