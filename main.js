@@ -1,19 +1,25 @@
 const game = document.getElementById("game");
 
+
+document.addEventListener("DOMContentLoaded", () =>{
+
+    startDrawing();
+});
+
+
+const startDrawing = () => {
 if (game.getContext) {
     const ctx = game.getContext("2d");
-    ctx.heigth = 500;
-    ctx.width = 700;
-    ctx.fillStyle = "lightblue";
-    ctx.fillRect(0 , 0 , ctx.width , ctx.heigth);
+    game.height = 500;
+    game.width = 800;
 
-    // importowanie standardowego ptaka
+
     import("./scripts/bird.js")
         .then(module => {
-            module.drawBird(ctx); 
+            module.drawBird(ctx , game); 
         })
         .catch(err => {
-            throw new Error(err);
+            console.error("Error loading bird module:", err);
         })
 
 
@@ -22,7 +28,5 @@ else{
     alert("Your browser does not support canvas");
 }
 
-
-const main = () => {
-
 }
+
