@@ -18,10 +18,13 @@ if (game.getContext) {
         const {stillRunning , birdInfo}= updateBird()
         if(!stillRunning) return;
         const allPipesInfo = updatePipes();
-        allPipesInfo.foreach(pipe => {
-            if(pipe.)
+        allPipesInfo.forEach(pipe => {
+            const pipeGap = 150;
+            const lowerPipeHeight = canvas.height - pipe.h - pipeGap;
 
-
+            if(birdInfo.w >= pipe.x || birdInfo.h >= pipe.h || birdInfo.h >= lowerPipeHeight){
+                return;
+            }
         })
         requestAnimationFrame(animate);
     }

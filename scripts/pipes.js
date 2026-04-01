@@ -21,8 +21,7 @@ export const drawPipes = (ctx , canvas)=> {
         createPipe();
 
         pipeArr = pipeArr.filter(pipe => pipeWidth + pipe.x > 0)
-
-        
+       
         pipeArr.forEach(pipe => {
             pipe.x -= moveSpeed;
             const lowerPipeHeight = canvas.height - pipe.h - pipeGap;
@@ -30,7 +29,7 @@ export const drawPipes = (ctx , canvas)=> {
             ctx.drawImage(lowerPipe, pipe.x , pipe.h + pipeGap , pipeWidth ,  lowerPipeHeight );
         }
         )
-        return {updatePipes};
+        return {pipeArr};
     }
 
     const createPipe = () => {
@@ -40,6 +39,6 @@ export const drawPipes = (ctx , canvas)=> {
          } 
     }
 
-    return {updatePipes};
+    
 }
 
