@@ -1,11 +1,7 @@
+import { drawBird } from "./scripts/bird.js";
+import { drawPipes } from "./scripts/pipes.js";
+
 const game = document.getElementById("game");
-
-
-document.addEventListener("DOMContentLoaded", () =>{
-
-    startDrawing();
-});
-
 
 const startDrawing = () => {
 if (game.getContext) {
@@ -13,20 +9,36 @@ if (game.getContext) {
     game.height = 500;
     game.width = 800;
 
+    const {updateBird} = drawBird(ctx , game);
+    const {updatePipes} = drawPipes(ctx , game);
 
-    import("./scripts/bird.js")
-        .then(module => {
-            module.drawBird(ctx , game); 
+    const animate = () => {
+        ctx.clearRect(0 , 0 ,  game.width , game.height);
+
+        const {stillRunning , birdInfo}= updateBird()
+        if(!stillRunning) return;
+        const allPipesInfo = updatePipes();
+        allPipesInfo.foreach(pipe => {
+            if(pipe.)
+
+
         })
-        .catch(err => {
-            console.error("Error loading bird module:", err);
-        })
+        requestAnimationFrame(animate);
+    }
 
-
+    animate();
 }
 else{
     alert("Your browser does not support canvas");
 }
 
 }
+
+document.addEventListener("DOMContentLoaded", () =>{
+
+    startDrawing();
+});
+
+
+
 
