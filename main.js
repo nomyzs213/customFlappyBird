@@ -14,19 +14,29 @@ if (game.getContext) {
 
     const animate = () => {
         ctx.clearRect(0 , 0 ,  game.width , game.height);
-
-        const {stillRunning , birdInfo}= updateBird()
+        let collission = false;
+        const {stillRunning , birdInfo}= updateBird()  
         if(!stillRunning) return;
         const allPipesInfo = updatePipes();
         allPipesInfo.forEach(pipe => {
-            const pipeGap = 150;
-            const lowerPipeHeight = canvas.height - pipe.h - pipeGap;
 
-            if(birdInfo.w >= pipe.x || birdInfo.h >= pipe.h || birdInfo.h >= lowerPipeHeight){
+            const pipeGap = 150;
+            const lowerPipeHeight = game.height - pipe.h - pipeGap;
+            const pipeWidth =  190;
+
+            if(birdInfo.x + 50 < pipe.x + pipeWidth &&
+                birdInfo.x +  50+ birdInfo.w > pipe.x &&
+                (birdInfo.y + 50 < pipe.h || birdInfo.y + birdInfo.h + 50 > pipe.h + pipeGap)){
+                    
+                ctx.clearRect(0 , 0 ,  game.width , game.height);
+                collission = true;
                 return;
             }
+            
         })
+        if(collission) return;
         requestAnimationFrame(animate);
+        
     }
 
     animate();

@@ -29,7 +29,7 @@ export const drawPipes = (ctx , canvas)=> {
             ctx.drawImage(lowerPipe, pipe.x , pipe.h + pipeGap , pipeWidth ,  lowerPipeHeight );
         }
         )
-        return {pipeArr};
+        return pipeArr;
     }
 
     const createPipe = () => {
@@ -39,6 +39,6 @@ export const drawPipes = (ctx , canvas)=> {
          } 
     }
 
-    
+    return {updatePipes};
 }
 
