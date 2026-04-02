@@ -10,34 +10,48 @@ if (game.getContext) {
     game.width = 800;
 
     const {updateBird} = drawBird(ctx , game);
-    const {updatePipes} = drawPipes(ctx , game);
+    let {updatePipes , pipeGap , pipeWidth} = drawPipes(ctx , game);
 
+    pipeWidth -=100;
+    let score = 0;
     const animate = () => {
         ctx.clearRect(0 , 0 ,  game.width , game.height);
-        let collission = false;
-        const {stillRunning , birdInfo}= updateBird()  
-        if(!stillRunning) return;
-        const allPipesInfo = updatePipes();
-        allPipesInfo.forEach(pipe => {
 
-            const pipeGap = 150;
-            const lowerPipeHeight = game.height - pipe.h - pipeGap;
-            const pipeWidth =  190;
-
-            if(birdInfo.x + 50 < pipe.x + pipeWidth &&
-                birdInfo.x +  50+ birdInfo.w > pipe.x &&
-                (birdInfo.y + 50 < pipe.h || birdInfo.y + birdInfo.h + 50 > pipe.h + pipeGap)){
-                    
-                ctx.clearRect(0 , 0 ,  game.width , game.height);
-                collission = true;
-                return;
-            }
-            
-        })
-        if(collission) return;
-        requestAnimationFrame(animate);
         
-    }
+        // sprawdzanie czy ptak uderzyl w sufit lub podłoge
+        const {stillRunning , birdInfo} = updateBird()  
+        if(!stillRunning) return;
+        
+        
+        const allPipesInfo = updatePipes();
+        let closestPipes = allPipesInfo.find(pipes => pipes.x + pipeWidth > birdInfo.x)
+        console.log( "before foreach:" , closestPipes , " y: " ,   birdInfo.y, " h: " , birdInfo.h,  " gap: " , pipeGap);
+
+        if(!closestPipes) {requestAnimationFrame(animate); return; } 
+    
+
+
+
+        if(   (birdInfo.x >= closestPipes.x && birdInfo.x < closestPipes.x + pipeWidth) // kolizja na x 
+                    &&
+            ( (birdInfo.y + birdInfo.h - 65 < closestPipes.h || birdInfo.y + birdInfo.h -65 > closestPipes.h + pipeGap ) )// kolizja na y                                                                                                         
+        )
+        {   
+            console.log("after foreach:" , closestPipes , " y: " ,   birdInfo.y, " h: " , birdInfo.h,  " gap: " , pipeGap , closestPipes.h , birdInfo.x , pipeWidth);
+            return;
+        }
+       
+
+                allPipesInfo.forEach(pipe => {
+            if(birdInfo.x > pipe.x + pipeWidth && !pipe.scored) {
+                pipe.scored = true;
+                score++;
+                document.getElementById("score").textContent = score;
+            }
+        }) 
+        requestAnimationFrame(animate);
+        }
+
 
     animate();
 }

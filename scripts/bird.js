@@ -6,9 +6,9 @@ export const drawBird = (ctx , canvas) => {
     let positionX = 100;
     let positionY = 100;
     let velocityY = 1;
-    let gravity = 0.05;
+    let gravity = 0.04;
     bird.onload = () => {
-        ctx.drawImage(bird, positionX , positionY , 110, 120);
+        ctx.drawImage(bird, positionX , positionY , 80, 80);
     };
 
 
@@ -31,8 +31,8 @@ export const drawBird = (ctx , canvas) => {
                 return {stillRunning: false , birdInfo:null};
 
             } 
-        ctx.drawImage(bird , positionX , positionY , 110, 120);
-        return { stillRunning: true, birdInfo: { x: positionX, y: positionY, w: 110, h: 120 } }        
+        ctx.drawImage(bird , positionX , positionY , 80, 80);
+        return { stillRunning: true, birdInfo: { x: positionX, y: positionY, w: 80, h: 80 } }        
     };
     
     return {updateBird};

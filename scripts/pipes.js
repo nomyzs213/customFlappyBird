@@ -6,9 +6,9 @@ export const drawPipes = (ctx , canvas)=> {
     lowerPipe.src = "./assets/pipes/lowerPipe.png";
 
     const minHeight = 50;
-    const maxHeight = 280;
-    const pipeWidth =  190;
-    const pipeGap = 150;
+    const maxHeight = 300;
+    const pipeWidth =  180;
+    const pipeGap = 220;
 
     let moveSpeed = 2;
 
@@ -39,6 +39,6 @@ export const drawPipes = (ctx , canvas)=> {
          } 
     }
 
-    return {updatePipes};
+    return {updatePipes , pipeGap, pipeWidth};
 }
 
