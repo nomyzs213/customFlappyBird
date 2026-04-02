@@ -24,14 +24,13 @@ if (game.getContext) {
         
         
         const allPipesInfo = updatePipes();
+        allPipesInfo.sort((a , b) => a.x - b.x);
         let closestPipes = allPipesInfo.find(pipes => pipes.x + pipeWidth > birdInfo.x)
-        console.log( "before foreach:" , closestPipes , " y: " ,   birdInfo.y, " h: " , birdInfo.h,  " gap: " , pipeGap);
+
+        
 
         if(!closestPipes) {requestAnimationFrame(animate); return; } 
     
-
-
-
         if(   (birdInfo.x >= closestPipes.x && birdInfo.x < closestPipes.x + pipeWidth) // kolizja na x 
                     &&
             ( (birdInfo.y + birdInfo.h - 65 < closestPipes.h || birdInfo.y + birdInfo.h -65 > closestPipes.h + pipeGap ) )// kolizja na y                                                                                                         
@@ -65,7 +64,3 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     startDrawing();
 });
-
-
-
-
