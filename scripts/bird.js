@@ -6,35 +6,44 @@ export const drawBird = (ctx , canvas) => {
     let positionX = 100;
     let positionY = 100;
     let velocityY = 1;
-    let gravity = 0.04;
+    let gravity = 0.0375;
     bird.onload = () => {
         ctx.drawImage(bird, positionX , positionY , 80, 80);
     };
 
+    let canJump = true;
+     const buttons = [" " , "ArrowUp" , "w"];
 
     document.addEventListener("keydown" , (e) => {
-        const buttons = [" " , "ArrowUp" , "w"];
         if (buttons.includes(e.key)) {
-            velocityY = -2;
+           if(canJump) {
+            velocityY = -2; 
+            canJump = false;
         }
-      
+
+        }
+
+   
+
+    document.addEventListener("keyup" , (e) => {
+        if(buttons.includes(e.key)) canJump = true;
+    })
     });
 
+    
+    const stopBird = () => {
+        document.removeEventListener("keydown");
+
+    };
+    
     const updateBird =  () => {
         velocityY += gravity;   
         positionY += velocityY; 
-        if( positionY + 50 >= canvas.height 
-            || positionY <= 0 
-        )
-            {
-                document.getElementById("game-info").textContent = "Game Over";
-                return {stillRunning: false , birdInfo:null};
-
-            } 
+        
         ctx.drawImage(bird , positionX , positionY , 80, 80);
         return { stillRunning: true, birdInfo: { x: positionX, y: positionY, w: 80, h: 80 } }        
     };
     
-    return {updateBird};
+    return {updateBird , stopBird};
 
 };

@@ -10,7 +10,7 @@ export const drawPipes = (ctx , canvas)=> {
     const pipeWidth =  180;
     const pipeGap = 220;
 
-    let moveSpeed = 2;
+    let moveSpeed = 5;
 
     let pipeArr = [];
     let frameCount = 0;
