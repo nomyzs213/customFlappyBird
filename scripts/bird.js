@@ -14,26 +14,23 @@ export const drawBird = (ctx , canvas) => {
     let canJump = true;
      const buttons = [" " , "ArrowUp" , "w"];
 
-    document.addEventListener("keydown" , (e) => {
-        if (buttons.includes(e.key)) {
-           if(canJump) {
-            velocityY = -2; 
+    const handleKeyDown = (e) => {
+        if(buttons.includes(e.key) && canJump) {
+            velocityY = -2;
             canJump = false;
         }
+    };
 
-        }
-
-   
-
-    document.addEventListener("keyup" , (e) => {
+    const handleKeyUp = (e) => {
         if(buttons.includes(e.key)) canJump = true;
-    })
-    });
+    };
 
-    
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+
     const stopBird = () => {
-        document.removeEventListener("keydown");
-
+        document.removeEventListener("keydown", handleKeyDown);
+        document.removeEventListener("keyup", handleKeyUp);
     };
     
     const updateBird =  () => {
@@ -44,6 +41,10 @@ export const drawBird = (ctx , canvas) => {
         return { stillRunning: true, birdInfo: { x: positionX, y: positionY, w: 80, h: 80 } }        
     };
     
-    return {updateBird , stopBird};
+    const drawStartingPosition = () => {
+        ctx.drawImage(bird, positionX , positionY , 80, 80);
+    }
+
+    return {updateBird , stopBird , drawStartingPosition};
 
 };

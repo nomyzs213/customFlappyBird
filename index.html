@@ -5,14 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom flappy bird</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
     <h1 id="game-info"></h1>
     <h2 id="score"> </h2>
+    <h2 id="pb-score"></h2>
+    <h2 id="before-start">Press any key to start...</h2>
+    <p>Press: space , arrowUp , w or enter to jump </p>
     <canvas id="game"> </canvas>
-    <button id="start-game">click to start</button>
-    
+    <h2 id="pb-alert"></h2>
+    <button id="retry"></button>
+     
+
     <script type="module" src="main.js"></script>
     <script type="module" src="scripts/bird.js"></script>
     <script type="module" src="scripts/pipes.js"></script>

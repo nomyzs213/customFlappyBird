@@ -5,6 +5,9 @@ body{
     flex-direction: column;
     height: 100vh;
     background-color: gradient(to right, #00c9ff, #92fe9d);
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 #game{
@@ -21,7 +24,7 @@ body{
 
 }
 
-#start-game{
+#retry{
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 18px;
@@ -35,7 +38,7 @@ body{
     height: 120px;
     width: 120px;
     border: rgba(black, 0.1);
-    
+    display: none;
 }
 
 #score{
@@ -43,4 +46,12 @@ body{
     font-size: 2.5em;
     font-weight: bold;
     color: #333;
+}
+
+#pb-alert{
+    margin-top: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ff0000;
+    display: none;
 }
