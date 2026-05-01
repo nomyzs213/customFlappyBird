@@ -7,12 +7,12 @@ const retry = document.getElementById("retry");
 
 let isRendering = false;
 let running = false;
+let pbScoreLoc = localStorage.getItem("pbScore") ? parseInt(localStorage.getItem("pbScore")) : undefined;
 let pbScore = 0;
-
 const pbEl = document.getElementById("pb-score");
 const pbAlert = document.getElementById("pb-alert")
 
-pbEl.textContent = `obecny rekord: ${pbScore} pkt!`;
+pbEl.textContent = `obecny rekord: ${typeof pbScoreLoc === "undefined" ? 0 : pbScoreLoc} pkt!`;
 
 
 
@@ -49,7 +49,7 @@ if (game.getContext) {
     
         if(  ( (birdInfo.x >= closestPipes.x && birdInfo.x < closestPipes.x + pipeWidth) // kolizja na x 
                     &&
-            ( (birdInfo.y + birdInfo.h + 40  < closestPipes.h || birdInfo.y + birdInfo.h - 75    > closestPipes.h + pipeGap ) ) // kolizja na y        
+            ( (birdInfo.y + birdInfo.h + 40  < closestPipes.h || birdInfo.y + birdInfo.h - 120 > closestPipes.h + pipeGap ) ) // kolizja na y        
               )
               ||
                 (birdInfo.y <= 0 || birdInfo.h + birdInfo.y > game.height)
@@ -69,13 +69,16 @@ if (game.getContext) {
 
              if(typeof pbScore === "undefined") {
                 pbScore = score;
+                localStorage.setItem("pbScore" , pbScore);
                 }
 
             if(score > pbScore ) {
                 pbScore = score;
+                localStorage.setItem("pbScore" , pbScore);
                 pbAlert.style.display = "block";
                 pbAlert.textContent = `nowy rekord: ${pbScore} pkt!`
                 pbEl.textContent = `obecny rekord: ${pbScore} pkt!`;
+                localStorage.setItem("pbScore" , pbScore);
             };
             
         }
@@ -92,7 +95,7 @@ if (game.getContext) {
             }
         }) 
         if(!running) return;
-        requestAnimationFrame(animate);
+        setTimeout(() => {animate();} , 500/60);
         }
 
 
@@ -107,11 +110,9 @@ else{
 
 document.addEventListener("DOMContentLoaded", () =>{
 
-    document.addEventListener("keydown" , () =>{
-        document.getElementById("before-start").textContent = ""; 
-        startDrawing();
-    } , {once: true}) // once bo szukany tylko pierwszego wystapienia by sie nie psulo skakanie w grze
-
+    document.addEventListener("pointerdown" , handleStart
+    , {once: true}) // once bo szukany tylko pierwszego wystapienia by sie nie psulo skakanie w grze
+    document.addEventListener("keydown" , handleStart , {once: true}) // once bo szukany tylko pierwszego wystapienia by sie nie psulo skakanie w grze
 
     retry.addEventListener("click" , () => {
         // chowanie co nie potrzebne przy retry
@@ -122,4 +123,12 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
 
     })
+
+    function handleStart(e) {
+        if(isRendering) return; // zabezpieczenie przed ponownym startem gry podczas trwania gry
+        if(e.repeat) return; // zabezpieczenie przed przytrzymaniem klawisza i psuciem skakania
+
+        document.getElementById("before-start").textContent = ""; 
+        startDrawing();
+    }
 });
