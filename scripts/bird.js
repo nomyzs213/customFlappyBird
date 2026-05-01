@@ -5,8 +5,8 @@ export const drawBird = (ctx , canvas) => {
 
     let positionX = 100;
     let positionY = 100;
-    let velocityY = 1;
-    let gravity = 0.0375;
+    let velocityY = 2.5;
+    let gravity = 0.03;
     bird.onload = () => {
         ctx.drawImage(bird, positionX , positionY , 80, 80);
     };
@@ -15,20 +15,26 @@ export const drawBird = (ctx , canvas) => {
      const buttons = [" " , "ArrowUp" , "w"];
 
     const handleKeyDown = (e) => {
-        if(buttons.includes(e.key) && canJump) {
+        if( (buttons.includes(e.key) && canJump) ||  (e.type === "pointerdown" && canJump) ) {
             velocityY = -2;
             canJump = false;
         }
+        
     };
 
     const handleKeyUp = (e) => {
         if(buttons.includes(e.key)) canJump = true;
     };
 
+    document.addEventListener("pointerdown", handleKeyDown);
+    document.addEventListener("pointerup", handleKeyUp);
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
 
+
     const stopBird = () => {
+        document.removeEventListener("pointerdown", handleKeyDown);
+        document.removeEventListener("pointerup", handleKeyUp);
         document.removeEventListener("keydown", handleKeyDown);
         document.removeEventListener("keyup", handleKeyUp);
     };

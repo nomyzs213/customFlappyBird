@@ -5,12 +5,12 @@ export const drawPipes = (ctx , canvas)=> {
     upperPipe.src = "./assets/pipes/upperPipe.png";
     lowerPipe.src = "./assets/pipes/lowerPipe.png";
 
-    const minHeight = 70 ;
+    const minHeight = 70;
     const maxHeight = 300;
     const pipeWidth =  180;
-    const pipeGap = 220;
+    const pipeGap = 140;
 
-    let moveSpeed = 2.7;
+    let moveSpeed = 3.2;
 
     let pipeArr = [];
     let frameCount = 0;
@@ -34,7 +34,7 @@ export const drawPipes = (ctx , canvas)=> {
 
     const createPipe = () => {
         if(frameCount % 45 === 0 && screenWidth > 0){
-            const uppePipeHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight - 30 ;
+            const uppePipeHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight - 90 ;
             pipeArr.push({x: screenWidth ,  h: uppePipeHeight})
          } 
     }
