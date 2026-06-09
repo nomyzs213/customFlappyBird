@@ -27,7 +27,7 @@ if (game.getContext) {
     const {updateBird , stopBird , drawStartingPosition} = drawBird(ctx , game);
     let {updatePipes , pipeGap , pipeWidth} = drawPipes(ctx , game);
 
-    pipeWidth -=100;
+    
     let score = 0;
     
    
@@ -47,9 +47,9 @@ if (game.getContext) {
 
         if(!closestPipes) {requestAnimationFrame(animate); return; } 
     
-        if(  ( (birdInfo.x >= closestPipes.x && birdInfo.x < closestPipes.x + pipeWidth) // kolizja na x 
+        if(  ( (birdInfo.x + birdInfo.w > closestPipes.x && birdInfo.x < closestPipes.x + pipeWidth) // kolizja na x 
                     &&
-            ( (birdInfo.y + birdInfo.h + 40  < closestPipes.h || birdInfo.y + birdInfo.h - 120 > closestPipes.h + pipeGap ) ) // kolizja na y        
+              ( (birdInfo.y  < closestPipes.h  || birdInfo.y + birdInfo.h  > closestPipes.h + pipeGap ) ) // kolizja na y        
               )
               ||
                 (birdInfo.y <= 0 || birdInfo.h + birdInfo.y > game.height)
@@ -91,7 +91,7 @@ if (game.getContext) {
             if(birdInfo.x > pipe.x + pipeWidth && !pipe.scored) {
                 pipe.scored = true;
                 score++;
-                document.getElementById("score").textContent = "score:" + score + " pkt";
+                document.getElementById("score").textContent = "wynik:" + score + " pkt";
             }
         }) 
         if(!running) return;
